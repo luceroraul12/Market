@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductSelectedBinding
+import java.text.DecimalFormat
 
 class ProductSelectedFragment : Fragment() {
 
@@ -30,7 +31,33 @@ class ProductSelectedFragment : Fragment() {
     ): View? {
         _binding = FragmentProductSelectedBinding.inflate(layoutInflater, container, false)
         setProductSelected()
+        setListener()
         return binding.root
+    }
+
+    private fun setListener() {
+        binding.sProductSelectedCurrentAmount.addOnChangeListener { _, value, _ ->
+            setNewCurrentAmount(value)
+        }
+        binding.bRemove.setOnClickListener { requireActivity().onBackPressed() }
+    }
+
+    private fun setNewCurrentAmount(amount: Float) {
+        // Quitar decimales
+        val format = DecimalFormat("0.#")
+
+        // Para fraccion
+        val currentAmount: String = format.format(amount)
+        val labelUnit: String = "x${currentAmount}g"
+        binding.tvProductSelectedCurrentAmount.text = labelUnit
+
+        // Para precio MODO DE EJEMPLO suponiendo que todos las unidades se encuentran en 100g
+        val priceString: String = binding.tvProductSelectedPrice.text.toString()
+        val price: Int = priceString.toInt()
+
+        val amountNormalized = amount / 100
+        val currentPrice = (amountNormalized * price)
+        binding.tvProductSelectedCurrentPrice.text = "$${format.format(currentPrice)}"
     }
 
     private fun setProductSelected() {
