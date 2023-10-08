@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/productFragment">
 
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.market.ui.products.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" >
+        <action
+            android:id="@+id/action_productFragment_to_productSelectedActivity"
+            app:destination="@id/productSelectedActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/productSelectedActivity"
+        android:name="com.example.market.ui.product_selected.ProductSelectedActivity"
+        android:label="activity_product_selected"
+        tools:layout="@layout/activity_product_selected" />
+    <fragment
+        android:id="@+id/shoppingCartFragment3"
+        android:name="com.example.market.ui.shopping_cart.ShoppingCartFragment"
+        android:label="fragment_shopping_cart"
+        tools:layout="@layout/fragment_shopping_cart" />
 </navigation>
