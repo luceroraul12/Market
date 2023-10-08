@@ -20,13 +20,13 @@
                 android:layout_height="wrap_content"
                 tools:text="@tools:sample/full_names"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                style="@style/productTitle"
                 />
             <TextView
                 android:id="@+id/tvProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="20sp"
-                android:textSize="15sp"
+                style="@style/productDescription"
                 android:textStyle="italic"
                 tools:text="@tools:sample/lorem/random"/>
         </LinearLayout>

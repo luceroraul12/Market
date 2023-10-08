@@ -11,5 +11,13 @@
         <item name="background">@color/red</item>
     </style>
 
+    <style name="productTitle">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="productDescription">
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="Theme.Market" parent="Base.Theme.Market" />
 </resources>

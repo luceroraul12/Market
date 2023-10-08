@@ -6,4 +6,184 @@
     android:layout_height="match_parent"
     tools:context=".ui.product_selected.ProductSelectedActivity">
 
+    <TextView
+        android:id="@+id/tvProductSelectedName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PRODUCTO"
+        android:textStyle="bold"
+        style="@style/productTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/margin_divider"/>
+
+    <TextView
+        android:id="@+id/tvProductSelectedDescription"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        style="@style/productDescription"
+        android:textStyle="italic"
+        android:text="@tools:sample/lorem/random"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvProductSelectedName"
+        android:layout_margin="@dimen/margin_divider"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/dDescriptionEqual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvProductSelectedDescription"
+        android:layout_margin="@dimen/margin_divider"
+        />
+
+    <LinearLayout
+        android:id="@+id/lyEqual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dDescriptionEqual"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_divider"
+        >
+        <TextView
+            android:id="@+id/tvProductSelectedUnit"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/example_unit"
+            android:layout_margin="@dimen/margin_divider"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/equivale"
+            android:layout_margin="@dimen/margin_divider"/>
+
+        <TextView
+            android:id="@+id/tvProductSelectedPrice"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/example_price"
+            android:layout_margin="8dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/dEqualCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lyEqual"
+        android:layout_margin="@dimen/margin_divider"
+        />
+
+    <LinearLayout
+        android:id="@+id/lyCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dEqualCalculator"
+        android:layout_margin="@dimen/margin_divider"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/calculadora"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dEqualCalculator"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/tvProductSelectedCurrentAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/example_unit"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/equivale"
+                android:layout_margin="@dimen/margin_divider"/>
+
+            <TextView
+                android:id="@+id/tvProductSelectedCurrentPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/example_price"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="2000"
+            android:stepSize="10"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/dCalculatorbuttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lyCalculator"
+        android:layout_margin="@dimen/margin_divider"
+        />
+
+    <LinearLayout
+        android:id="@+id/lyButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dCalculatorbuttons"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_divider"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@color/success"
+            android:text="@string/agregar"
+            android:layout_margin="@dimen/margin_divider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@color/danger"
+            android:text="@string/quitar"
+            android:layout_margin="@dimen/margin_divider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

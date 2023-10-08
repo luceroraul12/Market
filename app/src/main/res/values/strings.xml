@@ -4,4 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="productos">Productos</string>
     <string name="carrito">Carrito</string>
+    <string name="equivale">Equivale</string>
+    <string name="example_unit">x100g</string>
+    <string name="example_price">$2000,50</string>
+    <string name="calculadora">Calculadora</string>
+    <string name="agregar">Agregar</string>
+    <string name="quitar">Quitar</string>
 </resources>
