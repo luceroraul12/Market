@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/productsFragment"
+        android:id="@+id/productFragment"
         android:title="@string/productos"
         android:icon="@drawable/ic_products"/>
     <item
-        android:id="@+id/shoppingCartFragment"
+        android:id="@+id/shoppingCartFragment3"
         android:title="@string/carrito"
         android:icon="@drawable/ic_shopping_cart"/>
 </menu>
