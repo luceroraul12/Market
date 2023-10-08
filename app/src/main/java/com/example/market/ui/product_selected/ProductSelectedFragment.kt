@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.example.market.data.DataMock
-import com.example.market.databinding.FragmentProductBinding
+import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductSelectedBinding
 
 class ProductSelectedFragment : Fragment() {
 
-    private val dataMock: DataMock = DataMock()
+    private val dataMockViewModel: DataMockViewModel = DataMockViewModel()
 
     private var _binding: FragmentProductSelectedBinding? = null
 
@@ -35,7 +34,7 @@ class ProductSelectedFragment : Fragment() {
     }
 
     private fun setProductSelected() {
-        val productSelected = dataMock.getById(args.id)
+        val productSelected = dataMockViewModel.getById(args.id)
 
         binding.tvProductSelectedName.text = productSelected.name
         binding.tvProductSelectedDescription.text = productSelected.description

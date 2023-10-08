@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.market.R
-import com.example.market.data.DataMock
+import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
 class ProductFragment : Fragment() {
     private var _binding: FragmentProductBinding? = null
@@ -18,7 +18,7 @@ class ProductFragment : Fragment() {
 
     private lateinit var productAdapter: ProductAdapter
 
-    private var dataMock: DataMock = DataMock()
+    private var dataMockViewModel: DataMockViewModel = DataMockViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class ProductFragment : Fragment() {
     }
 
     private fun initUI() {
-        productAdapter = ProductAdapter(dataMock.products) {
+        productAdapter = ProductAdapter(dataMockViewModel.products) {
             findNavController().navigate(
                 ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it)
             )
@@ -53,7 +53,7 @@ class ProductFragment : Fragment() {
 
 
     private fun setDataMock() {
-        productAdapter.updateProducts(dataMock.products)
+        productAdapter.updateProducts(dataMockViewModel.products)
     }
 
 
