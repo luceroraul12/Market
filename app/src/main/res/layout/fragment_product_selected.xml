@@ -10,7 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:context=".ui.product_selected.ProductSelectedActivity">
+        tools:context=".ui.product_selected.ProductSelectedFragment">
         <TextView
             android:id="@+id/tvProductSelectedName"
             android:layout_width="wrap_content"

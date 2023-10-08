@@ -12,19 +12,19 @@
         tools:layout="@layout/fragment_product" >
         <action
             android:id="@+id/action_productFragment_to_productSelectedActivity"
-            app:destination="@id/productSelectedActivity">
+            app:destination="@id/productSelectedFragment">
         </action>
 
     </fragment>
-    <activity
-        android:id="@+id/productSelectedActivity"
-        android:name="com.example.market.ui.product_selected.ProductSelectedActivity"
-        android:label="activity_product_selected"
-        tools:layout="@layout/activity_product_selected">
+    <fragment
+        android:id="@+id/productSelectedFragment"
+        android:name="com.example.market.ui.product_selected.ProductSelectedFragment"
+        android:label="fragment_product_selected"
+        tools:layout="@layout/fragment_product_selected">
         <argument
             android:name="id"
             app:argType="integer" />
-    </activity>
+    </fragment>
     <fragment
         android:id="@+id/shoppingCartFragment3"
         android:name="com.example.market.ui.shopping_cart.ShoppingCartFragment"
