@@ -13,23 +13,25 @@
         tools:context=".ui.product_selected.ProductSelectedActivity">
         <TextView
             android:id="@+id/tvProductSelectedName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PRODUCTO"
             android:textStyle="bold"
             style="@style/productTitle"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_margin="@dimen/margin_divider"/>
 
         <TextView
             android:id="@+id/tvProductSelectedDescription"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             style="@style/productDescription"
             android:textStyle="italic"
-            android:text="@tools:sample/lorem/random"
+            android:text="KAJSDF;LKASDJF;LAKJSDF;LAKJSDF;ALSJDF;ASLKDF"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProductSelectedName"
             android:layout_margin="@dimen/margin_divider"/>
 
@@ -45,7 +47,7 @@
 
         <LinearLayout
             android:id="@+id/lyEqual"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
