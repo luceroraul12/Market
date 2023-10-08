@@ -8,10 +8,12 @@ import com.example.market.ui.products.model.ProductViewModel
 class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private var binding = ItemProductBinding.bind(view)
-    fun render(product: ProductViewModel){
+    fun render(product: ProductViewModel, onItemSelected: () -> Unit){
         binding.tvProductName.text = product.name
         binding.tvProductDescription.text = product.description
         binding.tvProductUnit.text = product.unit
         binding.tvProductPrice.text = product.price.toString()
+
+        binding.lyProductItem.setOnClickListener{onItemSelected()}
     }
 }

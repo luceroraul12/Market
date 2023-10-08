@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market.R
 import com.example.market.data.DataMock
@@ -38,7 +39,11 @@ class ProductFragment : Fragment() {
     }
 
     private fun initUI() {
-        productAdapter = ProductAdapter(dataMock.products)
+        productAdapter = ProductAdapter(dataMock.products) {
+            findNavController().navigate(
+                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity()
+            )
+        }
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = productAdapter
