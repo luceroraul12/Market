@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_product" >
         <action
             android:id="@+id/action_productFragment_to_productSelectedActivity"
-            app:destination="@id/productSelectedActivity" />
+            app:destination="@id/productSelectedActivity">
+            <argument
+                android:name="id"
+                app:argType="integer" />
+        </action>
+
     </fragment>
     <activity
         android:id="@+id/productSelectedActivity"
@@ -24,4 +29,5 @@
         android:name="com.example.market.ui.shopping_cart.ShoppingCartFragment"
         android:label="fragment_shopping_cart"
         tools:layout="@layout/fragment_shopping_cart" />
+
 </navigation>

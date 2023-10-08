@@ -8,7 +8,7 @@ import com.example.market.ui.products.model.ProductViewModel
 
 class ProductAdapter(
     private var products: List<ProductViewModel> = emptyList(),
-    private val onItemSelected: () -> Unit
+    private val onItemSelected: (id: Int) -> Unit
 ): RecyclerView.Adapter<ProductViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false))
@@ -17,7 +17,7 @@ class ProductAdapter(
     override fun getItemCount(): Int = products.size
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.render(products.get(position)) {onItemSelected()}
+        holder.render(products.get(position)) {onItemSelected(it)}
     }
 
     fun updateProducts(list: List<ProductViewModel>){

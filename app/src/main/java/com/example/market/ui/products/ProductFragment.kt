@@ -41,7 +41,7 @@ class ProductFragment : Fragment() {
     private fun initUI() {
         productAdapter = ProductAdapter(dataMock.products) {
             findNavController().navigate(
-                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity()
+                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it)
             )
         }
         binding.rvProducts.apply {
@@ -51,8 +51,11 @@ class ProductFragment : Fragment() {
         setDataMock()
     }
 
+
     private fun setDataMock() {
         productAdapter.updateProducts(dataMock.products)
     }
+
+
 
 }
