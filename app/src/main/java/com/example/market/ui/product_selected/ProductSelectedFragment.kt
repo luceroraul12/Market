@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductSelectedBinding
 import java.text.DecimalFormat
+import javax.inject.Inject
 
-class ProductSelectedFragment : Fragment() {
+class ProductSelectedFragment @Inject constructor(): Fragment() {
 
-    private val dataMockViewModel: DataMockViewModel = DataMockViewModel()
+    private val dataMockViewModel by viewModels<DataMockViewModel>()
 
     private var _binding: FragmentProductSelectedBinding? = null
 

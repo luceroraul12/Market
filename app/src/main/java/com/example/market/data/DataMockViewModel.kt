@@ -1,7 +1,8 @@
 package com.example.market.data
 
+import androidx.lifecycle.ViewModel
 import com.example.market.ui.products.model.ProductViewModel
-class DataMockViewModel {
+class DataMockViewModel: ViewModel(){
     val products: List<ProductViewModel> = listOf(
         ProductViewModel(1,"mani", "pelado", "x100g", 1500),
         ProductViewModel(2,"mani", "con cascara", "x100g", 1300),

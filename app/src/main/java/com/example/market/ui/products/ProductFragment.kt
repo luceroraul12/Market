@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market.data.DataMockViewModel
@@ -12,13 +13,16 @@ import com.example.market.databinding.FragmentProductBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
+
+    private val dataMockViewModel by viewModels<DataMockViewModel>()
+
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var productAdapter: ProductAdapter
 
-    private var dataMockViewModel: DataMockViewModel = DataMockViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
