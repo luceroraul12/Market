@@ -1,5 +1,6 @@
 package com.example.market.data
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.market.ui.products.model.ProductViewModel
 class DataMockViewModel: ViewModel(){
@@ -19,5 +20,6 @@ class DataMockViewModel: ViewModel(){
 
     fun addCartProduct(product: ProductViewModel){
         cartProducts.add(product)
+        Log.i("productos carrito", cartProducts.toString())
     }
 }

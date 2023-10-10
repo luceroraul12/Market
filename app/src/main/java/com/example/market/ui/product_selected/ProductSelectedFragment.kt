@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductSelectedBinding
+import com.example.market.ui.products.model.ProductViewModel
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -21,6 +22,8 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     private val binding get() = _binding!!
 
     private val args: ProductSelectedFragmentArgs by navArgs()
+
+    private var productSelected: ProductViewModel = ProductViewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +44,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
         binding.sProductSelectedCurrentAmount.addOnChangeListener { _, value, _ ->
             setNewCurrentAmount(value)
         }
+        binding.bAdd.setOnClickListener { addProductoToCart() }
         binding.bRemove.setOnClickListener { requireActivity().onBackPressed() }
     }
 
@@ -50,7 +54,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
 
         // Para fraccion
         val currentAmount: String = format.format(amount)
-        val labelUnit: String = "x${currentAmount}g"
+        val labelUnit: String = currentAmount
         binding.tvProductSelectedCurrentAmount.text = labelUnit
 
         // Para precio MODO DE EJEMPLO suponiendo que todos las unidades se encuentran en 100g
@@ -59,15 +63,22 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
 
         val amountNormalized = amount / 100
         val currentPrice = (amountNormalized * price)
-        binding.tvProductSelectedCurrentPrice.text = "$${format.format(currentPrice)}"
+        binding.tvProductSelectedCurrentPrice.text = format.format(currentPrice)
     }
 
     private fun setProductSelected() {
-        val productSelected = dataMockViewModel.getById(args.id)
+        productSelected = dataMockViewModel.getById(args.id)
 
         binding.tvProductSelectedName.text = productSelected.name
         binding.tvProductSelectedDescription.text = productSelected.description
         binding.tvProductSelectedUnit.text = productSelected.unit
         binding.tvProductSelectedPrice.text = productSelected.price.toString()
+    }
+
+    private fun addProductoToCart() {
+        productSelected.currentAmount = binding.tvProductSelectedCurrentAmount.text.toString().toInt()
+        productSelected.currentPrice = binding.tvProductSelectedCurrentPrice.text.toString().toInt()
+
+        dataMockViewModel.addCartProduct(productSelected)
     }
 }
