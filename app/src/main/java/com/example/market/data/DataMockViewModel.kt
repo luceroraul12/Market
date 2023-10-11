@@ -3,7 +3,11 @@ package com.example.market.data
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.market.ui.products.model.ProductViewModel
-class DataMockViewModel: ViewModel(){
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class DataMockViewModel @Inject constructor(): ViewModel(){
     val products: List<ProductViewModel> = listOf(
         ProductViewModel(1,"mani", "pelado", "x100g", 1500),
         ProductViewModel(2,"mani", "con cascara", "x100g", 1300),
@@ -11,7 +15,10 @@ class DataMockViewModel: ViewModel(){
         ProductViewModel(4,"mix frutos secos", "mani, almendra, nueces, pasas de uva", "x100g", 1850),
     )
 
-    var cartProducts: MutableList<ProductViewModel> = mutableListOf()
+    var cartProducts: MutableList<ProductViewModel> = mutableListOf(
+        ProductViewModel(1,"mani", "pelado", "x100g", 1500, 250, 5000),
+        ProductViewModel(2,"mani", "con cascara", "x100g", 1300, 150, 200),
+    )
 
 
     fun getById(id: Int): ProductViewModel {

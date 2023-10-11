@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.shopping_cart.ShoppingCartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProductsCart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:listitem="@layout/item_product_cart"/>
 
 </FrameLayout>
