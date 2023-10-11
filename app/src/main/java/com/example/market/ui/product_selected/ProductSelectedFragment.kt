@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -103,11 +104,17 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
             productSelected.currentPrice,
             productSelected.description
         ));
+        val label = "Carrito: Producto ${if(args.newProduct) "agregado" else "actualizado"}: ${productSelected.name}";
+        val toast = Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT);
+        toast.show()
         requireActivity().onBackPressed()
     }
 
     private fun removeProductCart(){
         dataMockViewModel.removeProductCart(productSelected.id)
+        val label = "Carrito: Producto eliminado: ${productSelected.name}";
+        val toast = Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT);
+        toast.show()
         requireActivity().onBackPressed()
     }
 }
