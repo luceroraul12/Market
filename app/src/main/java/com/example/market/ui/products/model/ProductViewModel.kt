@@ -10,5 +10,6 @@ data class ProductViewModel(
     val unit: String = "VACIO",
     val price: Int = 0,
     var currentAmount: Int = 0,
-    var currentPrice: Double = 0.0
+    var currentPrice: Double = 0.0,
+    val isCart: Boolean = false
 )

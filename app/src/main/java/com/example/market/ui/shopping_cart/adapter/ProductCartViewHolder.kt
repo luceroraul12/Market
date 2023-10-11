@@ -1,7 +1,9 @@
 package com.example.market.ui.shopping_cart.adapter
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.market.R
 import com.example.market.databinding.ItemProductCartBinding
 import com.example.market.ui.products.model.ProductViewModel
 import java.text.DecimalFormat
