@@ -81,13 +81,14 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
 
     private fun addProductoToCart() {
         productSelected.currentAmount = binding.tvProductSelectedCurrentAmount.text.toString().toInt()
-        productSelected.currentPrice = binding.tvProductSelectedCurrentPrice.text.toString().toInt()
+        productSelected.currentPrice = binding.tvProductSelectedCurrentPrice.text.toString().toDouble()
 
         dataMockViewModel.insert(ProductCartEntity(
             productSelected.id,
             productSelected.name,
             productSelected.currentAmount,
-            productSelected.currentPrice
+            productSelected.currentPrice,
+            productSelected.description
         ));
     }
 }

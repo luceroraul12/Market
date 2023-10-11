@@ -48,7 +48,7 @@ class ShoppingCartFragment @Inject constructor(
         setAdapter()
     }
     private fun setAdapter() {
-        productAdapter = ProductCartAdapter(dataMockViewModel.cartProducts) {
+        productAdapter = ProductCartAdapter() {
 //            findNavController().navigate(
 //                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it)
 //            )

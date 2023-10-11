@@ -11,10 +11,17 @@ class ProductCartViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun render(product: ProductViewModel, onItemSelected: (id: Int) -> Unit) {
         binding.tvProductName.text = product.name
         binding.tvProductDescription.text = product.description
-        binding.tvProductUnit.text = product.currentAmount.toString()
-        binding.tvProductPrice.text = product.currentPrice.toString()
+        binding.tvProductUnit.text = generateAmountLabel(product.currentAmount)
+        binding.tvProductPrice.text = generatePriceLabel(product.currentPrice)
 
         binding.lyProductItem.setOnClickListener{onItemSelected(product.id)}
+    }
 
+    fun generateAmountLabel(amount: Int): String {
+        return "x${amount}g"
+    }
+
+    fun generatePriceLabel(price: Double): String{
+        return "$price"
     }
 }

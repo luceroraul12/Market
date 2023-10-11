@@ -10,5 +10,6 @@ data class ProductCartEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "amount") val amount: Int,
-    @ColumnInfo(name = "price") val price: Int
+    @ColumnInfo(name = "price") val price: Double,
+    @ColumnInfo(name = "description") val description: String
 )
