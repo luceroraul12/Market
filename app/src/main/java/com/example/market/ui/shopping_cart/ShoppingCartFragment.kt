@@ -74,8 +74,26 @@ class ShoppingCartFragment @Inject constructor(
             }
             withContext(Dispatchers.Main) {
                 productAdapter.updateProducts(list)
+                setResultPrice(list)
             }
         }
+    }
+
+    private fun setResultPrice(list: List<ProductViewModel>): Unit {
+        if (list.isEmpty()){
+            binding.lyResult.visibility = View.GONE
+        } else {
+            val result = if (list.isNotEmpty()) getResultPrice(list) else ""
+            binding.tvResult.text = result
+        }
+    }
+
+    private fun getResultPrice(list: List<ProductViewModel>): String {
+        val result: Double = list
+            .map { p -> p.currentPrice }
+            .reduce{a,b -> a + b}
+
+        return "ARS$$result"
     }
 
 }
