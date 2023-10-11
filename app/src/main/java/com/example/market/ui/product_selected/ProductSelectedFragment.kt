@@ -8,11 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.market.data.DataMockViewModel
+import com.example.market.database.daos.ProductCartDao
+import com.example.market.database.entities.ProductCartEntity
 import com.example.market.databinding.FragmentProductSelectedBinding
 import com.example.market.ui.products.model.ProductViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProductSelectedFragment @Inject constructor(): Fragment() {
 
     private val dataMockViewModel by viewModels<DataMockViewModel>()
@@ -79,6 +83,11 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
         productSelected.currentAmount = binding.tvProductSelectedCurrentAmount.text.toString().toInt()
         productSelected.currentPrice = binding.tvProductSelectedCurrentPrice.text.toString().toInt()
 
-        dataMockViewModel.addCartProduct(productSelected)
+        dataMockViewModel.insert(ProductCartEntity(
+            productSelected.id,
+            productSelected.name,
+            productSelected.currentAmount,
+            productSelected.currentPrice
+        ));
     }
 }

@@ -12,9 +12,10 @@ import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductFragment : Fragment() {
+class ProductFragment @Inject constructor() : Fragment() {
 
     private val dataMockViewModel by viewModels<DataMockViewModel>()
 

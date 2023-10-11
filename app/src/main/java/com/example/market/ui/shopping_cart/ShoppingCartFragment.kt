@@ -10,10 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentShoppingCartBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
+import com.example.market.ui.products.model.ProductViewModel
 import com.example.market.ui.shopping_cart.adapter.ProductCartAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ShoppingCartFragment @Inject constructor(): Fragment() {
+@AndroidEntryPoint
+class ShoppingCartFragment @Inject constructor(
+): Fragment() {
 
     private val dataMockViewModel by viewModels<DataMockViewModel>()
 
@@ -53,7 +61,19 @@ class ShoppingCartFragment @Inject constructor(): Fragment() {
     }
 
     private fun setDataMock() {
-        productAdapter.updateProducts(dataMockViewModel.cartProducts)
+        CoroutineScope(Dispatchers.IO).launch {
+            val list = dataMockViewModel.getProductsCart().map { p ->
+                ProductViewModel(
+                    id = p.id,
+                    name = p.name,
+                    currentPrice = p.price,
+                    currentAmount = p.amount
+                )
+            }
+            withContext(Dispatchers.Main) {
+                productAdapter.updateProducts(list)
+            }
+        }
     }
 
 }
