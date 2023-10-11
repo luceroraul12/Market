@@ -24,12 +24,18 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <argument
+            android:name="newProduct"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/shoppingCartFragment3"
         android:name="com.example.market.ui.shopping_cart.ShoppingCartFragment"
         android:label="fragment_shopping_cart"
         tools:layout="@layout/fragment_shopping_cart">
+        <action
+            android:id="@+id/action_shoppingCartFragment3_to_productSelectedFragment"
+            app:destination="@id/productSelectedFragment" />
     </fragment>
 
 </navigation>

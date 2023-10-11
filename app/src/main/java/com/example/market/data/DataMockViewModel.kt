@@ -37,4 +37,10 @@ class DataMockViewModel @Inject constructor(
     fun getProductsCart(): List<ProductCartEntity> {
         return productCartDao.getAll();
     }
+
+    fun removeProductCart(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            productCartDao.delete(id)
+        }
+    }
 }

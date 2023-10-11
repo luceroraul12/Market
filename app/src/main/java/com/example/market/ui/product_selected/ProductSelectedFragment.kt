@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -40,8 +41,13 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     ): View? {
         _binding = FragmentProductSelectedBinding.inflate(layoutInflater, container, false)
         setProductSelected()
+        setUI()
         setListener()
         return binding.root
+    }
+
+    private fun setUI() {
+        binding.bRemove.visibility = if (args.newProduct) {View.GONE} else {View.VISIBLE}
     }
 
     private fun setListener() {
@@ -49,7 +55,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
             setNewCurrentAmount(value)
         }
         binding.bAdd.setOnClickListener { addProductoToCart() }
-        binding.bRemove.setOnClickListener { requireActivity().onBackPressed() }
+        binding.bRemove.setOnClickListener { removeProductCart() }
     }
 
     private fun setNewCurrentAmount(amount: Float) {
@@ -90,5 +96,11 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
             productSelected.currentPrice,
             productSelected.description
         ));
+        requireActivity().onBackPressed()
+    }
+
+    private fun removeProductCart(){
+        dataMockViewModel.removeProductCart(productSelected.id)
+        requireActivity().onBackPressed()
     }
 }

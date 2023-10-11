@@ -46,7 +46,7 @@ class ProductFragment @Inject constructor() : Fragment() {
     private fun initUI() {
         productAdapter = ProductAdapter(dataMockViewModel.products) {
             findNavController().navigate(
-                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it)
+                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it, true)
             )
         }
         binding.rvProducts.apply {

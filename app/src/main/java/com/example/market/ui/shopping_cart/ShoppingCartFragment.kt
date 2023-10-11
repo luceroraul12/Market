@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentShoppingCartBinding
@@ -49,9 +50,9 @@ class ShoppingCartFragment @Inject constructor(
     }
     private fun setAdapter() {
         productAdapter = ProductCartAdapter() {
-//            findNavController().navigate(
-//                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it)
-//            )
+            findNavController().navigate(
+                ShoppingCartFragmentDirections.actionShoppingCartFragment3ToProductSelectedFragment(it, false)
+            )
         }
         binding.rvProductsCart.apply {
             layoutManager = LinearLayoutManager(context)
