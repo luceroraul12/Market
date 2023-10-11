@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.market.R
 import com.example.market.data.DataMockViewModel
 import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.entities.ProductCartEntity
@@ -47,7 +48,12 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     }
 
     private fun setUI() {
-        binding.bRemove.visibility = if (args.newProduct) {View.GONE} else {View.VISIBLE}
+        if(args.newProduct){
+            binding.bRemove.visibility = View.GONE
+        } else {
+            binding.bRemove.visibility = View.VISIBLE
+            binding.bAdd.text = getText(R.string.actualizar)
+        }
     }
 
     private fun setListener() {
@@ -56,6 +62,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
         }
         binding.bAdd.setOnClickListener { addProductoToCart() }
         binding.bRemove.setOnClickListener { removeProductCart() }
+        binding.bBack.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     private fun setNewCurrentAmount(amount: Float) {

@@ -9,5 +9,6 @@
     <string name="example_price">$2000,50</string>
     <string name="calculadora">Calculadora</string>
     <string name="agregar">Agregar</string>
+    <string name="actualizar">Actualizar</string>
     <string name="quitar">Quitar</string>
 </resources>

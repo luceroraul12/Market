@@ -199,5 +199,19 @@
                 android:textColor="@color/white"
                 android:layout_weight="1"/>
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bBack"
+            android:background="@color/warning"
+            android:text="Volver"
+            android:layout_margin="16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lyButtons"
+            android:layout_weight="1"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
