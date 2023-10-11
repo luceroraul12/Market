@@ -68,7 +68,8 @@ class ShoppingCartFragment @Inject constructor(
                     id = p.id,
                     name = p.name,
                     currentPrice = p.price,
-                    currentAmount = p.amount
+                    currentAmount = p.amount,
+                    description = p.description
                 )
             }
             withContext(Dispatchers.Main) {
