@@ -122,15 +122,29 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
-                <TextView
-                    android:id="@+id/tvProductSelectedCurrentAmount"
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/example_unit"
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:textSize="30sp"
-                    android:textStyle="bold"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="gramos"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textStyle="italic"/>
+                    <TextView
+                        android:id="@+id/tvProductSelectedCurrentAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/example_unit"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -138,15 +152,29 @@
                     android:text="@string/equivale"
                     android:layout_margin="@dimen/margin_divider"/>
 
-                <TextView
-                    android:id="@+id/tvProductSelectedCurrentPrice"
+                <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/example_price"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="30sp"
-                    android:layout_weight="1"/>
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ARS$"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textStyle="italic"/>
+                    <TextView
+                        android:id="@+id/tvProductSelectedCurrentPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/example_price"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
             </LinearLayout>
 
             <com.google.android.material.slider.Slider
