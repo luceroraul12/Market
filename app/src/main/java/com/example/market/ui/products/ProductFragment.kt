@@ -12,6 +12,9 @@ import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,7 +47,7 @@ class ProductFragment @Inject constructor() : Fragment() {
     }
 
     private fun initUI() {
-        productAdapter = ProductAdapter(dataMockViewModel.products) {
+        productAdapter = ProductAdapter() {
             findNavController().navigate(
                 ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it, true)
             )
@@ -58,7 +61,9 @@ class ProductFragment @Inject constructor() : Fragment() {
 
 
     private fun setDataMock() {
-        productAdapter.updateProducts(dataMockViewModel.products)
+        CoroutineScope(Dispatchers.IO).launch {
+            productAdapter.updateProducts(dataMockViewModel.getAllProductaWithStatus())
+        }
     }
 
 
