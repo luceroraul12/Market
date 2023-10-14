@@ -52,4 +52,10 @@ class DataMockViewModel @Inject constructor(
             productCartDao.delete(id)
         }
     }
+
+    fun cleanProductCart(){
+        CoroutineScope(Dispatchers.IO).launch {
+            productCartDao.cleanProductCart()
+        }
+    }
 }

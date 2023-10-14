@@ -17,4 +17,8 @@ interface ProductCartDao {
 
     @Query("SELECT * FROM ProductCartEntity")
     fun getAll(): List<ProductCartEntity>
+
+    @Query("DELETE FROM productcartentity")
+    fun cleanProductCart()
+
 }

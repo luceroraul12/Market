@@ -59,7 +59,19 @@ class ShoppingCartFragment @Inject constructor(
             layoutManager = LinearLayoutManager(context)
             adapter = productAdapter
         }
+        binding.bSendCart.setOnClickListener{cleanProductCart()}
         setDataMock()
+    }
+
+    private fun cleanProductCart() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dataMockViewModel.cleanProductCart()
+            binding.lyResult.visibility = View.INVISIBLE
+            binding.bSendCart.visibility = View.INVISIBLE
+            withContext(Dispatchers.Main){
+                productAdapter.updateProducts(emptyList())
+            }
+        }
     }
 
     private fun setDataMock() {
@@ -83,6 +95,7 @@ class ShoppingCartFragment @Inject constructor(
     private fun setResultPrice(list: List<ProductViewModel>): Unit {
         if (list.isEmpty()){
             binding.lyResult.visibility = View.GONE
+            binding.bSendCart.visibility = View.GONE
         } else {
             val result = if (list.isNotEmpty()) getResultPrice(list) else ""
             binding.tvResult.text = result
