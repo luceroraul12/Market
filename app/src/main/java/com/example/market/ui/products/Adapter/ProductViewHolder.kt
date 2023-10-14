@@ -16,9 +16,11 @@ class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
         binding.tvProductUnit.text = product.unit
         binding.tvProductPrice.text = product.price.toString()
 
-        if (product.isCart)
+        if (product.isCart){
             binding.lyProductItem.setBackgroundColor(ContextCompat.getColor(binding.lyProductItem.context, R.color.gold))
+        } else {
+            binding.lyProductItem.setOnClickListener{onItemSelected(product.id)}
+        }
 
-        binding.lyProductItem.setOnClickListener{onItemSelected(product.id)}
     }
 }
