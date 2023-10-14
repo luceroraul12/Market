@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap android:src="@drawable/frutos_secos2"
+<bitmap android:src="@drawable/frutos_secos"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:alpha="0.3"
     >

@@ -66,12 +66,14 @@
                 android:layout_weight="1"
                 android:text="@string/example_unit"
                 android:layout_margin="@dimen/margin_divider"
+                style="@style/productDescription"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/equivale"
+                style="@style/productDescription"
                 android:layout_margin="@dimen/margin_divider"/>
 
             <TextView
@@ -81,6 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/example_price"
+                style="@style/productDescription"
+
                 android:layout_margin="8dp"/>
         </LinearLayout>
 
@@ -111,6 +115,8 @@
                 android:text="@string/calculadora"
                 android:textSize="20sp"
                 android:gravity="center"
+                style="@style/productDescription"
+
                 android:textStyle="bold"/>
 
             <LinearLayout
@@ -134,6 +140,8 @@
                         android:text="gramos"
                         android:gravity="center"
                         android:layout_weight="1"
+                        style="@style/productDescription"
+
                         android:textStyle="italic"/>
                     <TextView
                         android:id="@+id/tvProductSelectedCurrentAmount"
@@ -143,6 +151,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textSize="30sp"
+                        style="@style/productDescription"
                         android:textStyle="bold"/>
                 </LinearLayout>
 
@@ -150,6 +159,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/equivale"
+                    style="@style/productDescription"
+
                     android:layout_margin="@dimen/margin_divider"/>
 
                 <LinearLayout
@@ -164,6 +175,8 @@
                         android:text="ARS$"
                         android:gravity="center"
                         android:layout_weight="1"
+                        style="@style/productDescription"
+
                         android:textStyle="italic"/>
                     <TextView
                         android:id="@+id/tvProductSelectedCurrentPrice"
@@ -173,6 +186,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textSize="30sp"
+                        style="@style/productDescription"
                         android:textStyle="bold"/>
                 </LinearLayout>
             </LinearLayout>
