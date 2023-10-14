@@ -18,10 +18,10 @@ class DataMockViewModel @Inject constructor(
     private val productCartDao: ProductCartDao
 ): ViewModel(){
     private val products: List<ProductViewModel> = listOf(
-        ProductViewModel(1,"mani", "pelado", "x100g", 1500, 0, 0.0, true),
-        ProductViewModel(2,"mani","con cascara", "x100g", 1300),
-        ProductViewModel(3,"almendra", "", "x100g", 3000),
-        ProductViewModel(4,"mix frutos secos", "mani, almendra, nueces, pasas de uva", "x100g", 1850),
+        ProductViewModel(1,"mani", "pelado", "100", 1500, 0, 0.0, true),
+        ProductViewModel(2,"mani","con cascara", "100", 1300),
+        ProductViewModel(3,"almendra", "", "100", 3000),
+        ProductViewModel(4,"mix frutos secos", "mani, almendra, nueces, pasas de uva", "100", 1850),
     )
 
     fun getById(id: Int): ProductViewModel {

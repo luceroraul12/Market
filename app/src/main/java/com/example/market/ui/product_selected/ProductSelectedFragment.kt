@@ -91,6 +91,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
         binding.tvProductSelectedDescription.text = productSelected.description
         binding.tvProductSelectedUnit.text = productSelected.unit
         binding.tvProductSelectedPrice.text = productSelected.price.toString()
+        binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
     }
 
     private fun addProductoToCart() {
