@@ -32,7 +32,7 @@ android {
         }
         getByName("debug") {
             isDebuggable = true
-            buildConfigField("String", "BASE_URL", "\"https://newastro.vercel.app\"")
+            buildConfigField("String", "BASE_URL", "\"http://172.18.0.1:8080\"")
         }
     }
     compileOptions {

@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market.data.DataMockViewModel
 import com.example.market.databinding.FragmentProductBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
+import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,7 +64,10 @@ class ProductFragment @Inject constructor() : Fragment() {
 
     private fun setDataMock() {
         CoroutineScope(Dispatchers.IO).launch {
-            productAdapter.updateProducts(dataMockViewModel.getAllProductaWithStatus())
+            val products: List<ProductViewModel>  = dataMockViewModel.getAllProductaWithStatus();
+            withContext(Dispatchers.Main) {
+                productAdapter.updateProducts(products)
+            }
         }
     }
 

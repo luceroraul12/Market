@@ -1,5 +1,6 @@
 package com.example.market.database.repository
 
+import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.entities.ProductCartEntity
@@ -10,5 +11,9 @@ class ProductCartRepositoryImpl @Inject constructor(
 ) {
     suspend fun insert(productCartEntity: ProductCartEntity){
         
+    }
+
+    fun star(){
+        Log.i("raul", "inyectadooooooo")
     }
 }

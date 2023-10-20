@@ -1,21 +1,21 @@
 package com.example.market.data
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.entities.ProductCartEntity
+import com.example.market.database.repository.NetworkRepository
 import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class DataMockViewModel @Inject constructor(
-    private val productCartDao: ProductCartDao
+    private val productCartDao: ProductCartDao,
+    private val networkRepository: NetworkRepository
 ): ViewModel(){
     private val products: List<ProductViewModel> = listOf(
         ProductViewModel(1,"mani", "pelado", "100", 1500, 0, 0.0, true),
@@ -39,6 +39,8 @@ class DataMockViewModel @Inject constructor(
     }
 
     suspend fun getAllProductaWithStatus(): List<ProductViewModel> {
+        val numbers = networkRepository.example()
+        Log.i("test", numbers.toString())
         val productCartIds = getProductsCart().map { it.id }
         val result: List<ProductViewModel> = products.map {
             it.isCart = productCartIds.contains(it.id)
