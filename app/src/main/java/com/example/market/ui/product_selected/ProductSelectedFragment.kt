@@ -87,7 +87,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
 
         binding.tvProductSelectedName.text = productSelected.product.name
         binding.tvProductSelectedDescription.text = productSelected.product.description
-        binding.tvProductSelectedUnit.text = productSelected.product.unitType.description
+        binding.tvProductSelectedUnit.text = productSelected.product.unitTypeName
         binding.tvProductSelectedPrice.text = productSelected.product.price.toString()
         binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
     }

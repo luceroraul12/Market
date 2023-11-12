@@ -13,7 +13,7 @@ class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun render(product: ProductViewModel, onItemSelected: (id: Int) -> Unit){
         binding.tvProductName.text = product.product.name
         binding.tvProductDescription.text = product.product.description
-        binding.tvProductUnit.text = product.product.unitType.description
+        binding.tvProductUnit.text = product.product.unitTypeName
         binding.tvProductPrice.text = product.product.price.toString()
 
         if (product.isCart){

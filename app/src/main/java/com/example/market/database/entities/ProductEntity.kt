@@ -3,7 +3,7 @@ package com.example.market.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.market.database.responses.LookupValueResponse
+import com.example.market.ui.products.model.ProductViewModel
 
 @Entity
 data class ProductEntity(
@@ -18,3 +18,6 @@ data class ProductEntity(
     @ColumnInfo(name = "unitTypeName") val unitTypeName: String,
     @ColumnInfo(name = "unitTypeValue") val unitTypeValue: Double,
 )
+fun ProductEntity.toViewModel(): ProductViewModel{
+    return ProductViewModel(this)
+}

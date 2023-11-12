@@ -19,4 +19,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideProductCartDao(db: MarketDatabase) = db.getProductCartDao()
+
+    @Singleton
+    @Provides
+    fun provideProductDao(db: MarketDatabase) = db.getProductDao()
 }
