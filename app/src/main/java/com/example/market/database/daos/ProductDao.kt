@@ -4,20 +4,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.market.database.entities.ProductCartEntity
+import com.example.market.database.entities.ProductEntity
 
 @Dao
-interface ProductCartDao {
+interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(productCart: ProductCartEntity)
+    fun insert(product: ProductEntity)
 
     @Query("DELETE FROM productcartentity WHERE id = :id")
     fun delete(id: Int)
 
     @Query("SELECT * FROM ProductCartEntity")
-    fun getAll(): List<ProductCartEntity>
+    fun getAll(): List<ProductEntity>
 
-    @Query("DELETE FROM productcartentity")
-    fun cleanProductCart()
-
+    @Query("SELECT * FROM ProductCartEntity WHERE id = :id")
+    fun getById(id: Int): ProductEntity
 }
