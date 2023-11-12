@@ -1,9 +1,7 @@
 package com.example.market.ui.shopping_cart.adapter
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.market.R
 import com.example.market.databinding.ItemProductCartBinding
 import com.example.market.ui.products.model.ProductViewModel
 import java.text.DecimalFormat
@@ -11,13 +9,13 @@ import java.text.DecimalFormat
 class ProductCartViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private var binding = ItemProductCartBinding.bind(view)
 
-    fun render(product: ProductViewModel, onItemSelected: (id: Int) -> Unit) {
-        binding.tvProductName.text = product.name
-        binding.tvProductDescription.text = product.description
-        binding.tvProductUnit.text = generateAmountLabel(product.currentAmount)
-        binding.tvProductPrice.text = generatePriceLabel(product.currentPrice)
+    fun render(p: ProductViewModel, onItemSelected: (id: Int) -> Unit) {
+        binding.tvProductName.text = p.product.name
+        binding.tvProductDescription.text = p.product.description
+        binding.tvProductUnit.text = generateAmountLabel(p.currentAmount)
+        binding.tvProductPrice.text = generatePriceLabel(p.currentPrice)
 
-        binding.lyProductItem.setOnClickListener{onItemSelected(product.id)}
+        binding.lyProductItem.setOnClickListener{onItemSelected(p.product.id)}
     }
 
     fun generateAmountLabel(amount: Int): String {
@@ -30,6 +28,6 @@ class ProductCartViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         // Para fraccion
         val currentPrice: String = format.format(price)
-        return "$currentPrice"
+        return currentPrice
     }
 }

@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.market.R
 import com.example.market.data.DataMockViewModel
-import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.entities.ProductCartEntity
 import com.example.market.databinding.FragmentProductSelectedBinding
 import com.example.market.ui.products.model.ProductViewModel
@@ -30,7 +28,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
 
     private val args: ProductSelectedFragmentArgs by navArgs()
 
-    private var productSelected: ProductViewModel = ProductViewModel()
+    private lateinit var productSelected: ProductViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,10 +85,10 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     private fun setProductSelected() {
         productSelected = dataMockViewModel.getById(args.id)
 
-        binding.tvProductSelectedName.text = productSelected.name
-        binding.tvProductSelectedDescription.text = productSelected.description
-        binding.tvProductSelectedUnit.text = productSelected.unit
-        binding.tvProductSelectedPrice.text = productSelected.price.toString()
+        binding.tvProductSelectedName.text = productSelected.product.name
+        binding.tvProductSelectedDescription.text = productSelected.product.description
+        binding.tvProductSelectedUnit.text = productSelected.product.unitType.description
+        binding.tvProductSelectedPrice.text = productSelected.product.price.toString()
         binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
     }
 
@@ -99,21 +97,21 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
         productSelected.currentPrice = binding.tvProductSelectedCurrentPrice.text.toString().toDouble()
 
         dataMockViewModel.insert(ProductCartEntity(
-            productSelected.id,
-            productSelected.name,
-            productSelected.currentAmount,
-            productSelected.currentPrice,
-            productSelected.description
+            id = productSelected.product.id,
+            name = productSelected.product.name,
+            amount = productSelected.currentAmount,
+            price = productSelected.currentPrice,
+            description = productSelected.product.description ?: "Sin descripcion"
         ));
-        val label = "Carrito: Producto ${if(args.newProduct) "agregado" else "actualizado"}: ${productSelected.name}";
+        val label = "Carrito: Producto ${if(args.newProduct) "agregado" else "actualizado"}: ${productSelected.product.name}";
         val toast = Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT);
         toast.show()
         requireActivity().onBackPressed()
     }
 
     private fun removeProductCart(){
-        dataMockViewModel.removeProductCart(productSelected.id)
-        val label = "Carrito: Producto eliminado: ${productSelected.name}";
+        dataMockViewModel.removeProductCart(productSelected.product.id)
+        val label = "Carrito: Producto eliminado: ${productSelected.product.name}";
         val toast = Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT);
         toast.show()
         requireActivity().onBackPressed()

@@ -11,15 +11,15 @@ class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private var binding = ItemProductBinding.bind(view)
     fun render(product: ProductViewModel, onItemSelected: (id: Int) -> Unit){
-        binding.tvProductName.text = product.name
-        binding.tvProductDescription.text = product.description
-        binding.tvProductUnit.text = product.unit
-        binding.tvProductPrice.text = product.price.toString()
+        binding.tvProductName.text = product.product.name
+        binding.tvProductDescription.text = product.product.description
+        binding.tvProductUnit.text = product.product.unitType.description
+        binding.tvProductPrice.text = product.product.price.toString()
 
         if (product.isCart){
             binding.lyProductItem.setBackgroundColor(ContextCompat.getColor(binding.lyProductItem.context, R.color.gold))
         } else {
-            binding.lyProductItem.setOnClickListener{onItemSelected(product.id)}
+            binding.lyProductItem.setOnClickListener{onItemSelected(product.product.id)}
         }
 
     }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market.data.DataMockViewModel
+import com.example.market.database.responses.ProductCustomerResponse
 import com.example.market.databinding.FragmentShoppingCartBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
 import com.example.market.ui.products.model.ProductViewModel
@@ -76,13 +77,12 @@ class ShoppingCartFragment @Inject constructor(
 
     private fun setDataMock() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list = dataMockViewModel.getProductsCart().map { p ->
+            val list: List<ProductViewModel> = dataMockViewModel.getProductsCart().map { p ->
+                val product = dataMockViewModel.getById(p.id).product
                 ProductViewModel(
-                    id = p.id,
-                    name = p.name,
-                    currentPrice = p.price,
+                    product = product,
                     currentAmount = p.amount,
-                    description = p.description
+                    currentPrice = p.price
                 )
             }
             withContext(Dispatchers.Main) {
