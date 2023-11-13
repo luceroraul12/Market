@@ -1,15 +1,19 @@
 package com.example.market.data
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.daos.ProductDao
 import com.example.market.database.entities.ProductCartEntity
 import com.example.market.database.entities.toViewModel
 import com.example.market.database.repository.NetworkRepository
+import com.example.market.database.responses.ProductCustomerResponse
+import com.example.market.database.responses.toEntity
 import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,8 +24,7 @@ class DataMockViewModel @Inject constructor(
     private val networkRepository: NetworkRepository
 ): ViewModel(){
     private var products: List<ProductViewModel> = emptyList()
-    fun getById(id: Int): ProductViewModel {
-//        return products.first { it.product.id == id }
+    suspend fun getById(id: Int): ProductViewModel {
         return productDao.getById(id).toViewModel()
     }
 
@@ -31,12 +34,13 @@ class DataMockViewModel @Inject constructor(
         }
     }
 
-    fun getProductsCart(): List<ProductCartEntity> {
+    suspend fun getProductsCart(): List<ProductCartEntity> {
+        val result: List<ProductCustomerResponse> = networkRepository.getProducts()
+        productDao.insert(result.map { it.toEntity() })
         return productCartDao.getAll();
     }
 
     suspend fun getAllProductaWithStatus(): List<ProductViewModel> {
-//        val productsResponse: List<ProductCustomerResponse> = networkRepository.getProducts()
         val productCartIds: List<Int> = getProductsCart().map { it.id }
         val result: List<ProductViewModel> = productDao.getAll().map {
             ProductViewModel(

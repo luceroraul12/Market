@@ -9,3 +9,7 @@ data class ProductViewModel(
     var currentPrice: Double = 0.0,
     var isCart: Boolean = false
 )
+
+fun ProductViewModel.toEntity(): ProductEntity{
+    return this.product
+}

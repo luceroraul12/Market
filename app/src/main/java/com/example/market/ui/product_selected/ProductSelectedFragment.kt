@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.market.R
 import com.example.market.data.DataMockViewModel
@@ -14,6 +17,9 @@ import com.example.market.database.entities.ProductCartEntity
 import com.example.market.databinding.FragmentProductSelectedBinding
 import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -83,13 +89,17 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     }
 
     private fun setProductSelected() {
-        productSelected = dataMockViewModel.getById(args.id)
 
-        binding.tvProductSelectedName.text = productSelected.product.name
-        binding.tvProductSelectedDescription.text = productSelected.product.description
-        binding.tvProductSelectedUnit.text = productSelected.product.unitTypeName
-        binding.tvProductSelectedPrice.text = productSelected.product.price.toString()
-        binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                productSelected = dataMockViewModel.getById(args.id)
+                binding.tvProductSelectedName.text = productSelected.product.name
+                binding.tvProductSelectedDescription.text = productSelected.product.description
+                binding.tvProductSelectedUnit.text = productSelected.product.unitTypeName
+                binding.tvProductSelectedPrice.text = productSelected.product.price.toString()
+                binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
+            }
+        }
     }
 
     private fun addProductoToCart() {

@@ -1,5 +1,6 @@
 package com.example.market.database.responses
 
+import com.example.market.database.entities.ProductEntity
 import com.example.market.ui.products.model.ProductViewModel
 
 data class ProductCustomerResponse(
@@ -12,3 +13,18 @@ data class ProductCustomerResponse(
     val category: LookupValueResponse,
     val unitType: LookupValueResponse
 )
+
+public fun ProductCustomerResponse.toEntity(): ProductEntity {
+    return ProductEntity(
+        id = id,
+        stock = stock,
+        onlyUnit = onlyUnit,
+        name = name,
+        description = description,
+        price = price,
+        categoryName = category.description,
+        categoryCode = category.code,
+        unitTypeName = unitType.description,
+        unitTypeValue = unitType.value.toDouble()
+    )
+}

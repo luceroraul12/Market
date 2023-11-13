@@ -11,7 +11,7 @@ interface ProductCartDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(productCart: ProductCartEntity)
 
-    @Query("DELETE FROM productcartentity WHERE id = :id")
+    @Query("DELETE FROM productcartentity WHERE id = (:id )")
     fun delete(id: Int)
 
     @Query("SELECT * FROM ProductCartEntity")
