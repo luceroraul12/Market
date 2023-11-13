@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.market.data.DataMockViewModel
-import com.example.market.database.responses.ProductCustomerResponse
+import com.example.market.data.DataProductViewModel
 import com.example.market.databinding.FragmentShoppingCartBinding
-import com.example.market.ui.products.Adapter.ProductAdapter
 import com.example.market.ui.products.model.ProductViewModel
 import com.example.market.ui.shopping_cart.adapter.ProductCartAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,14 +17,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShoppingCartFragment @Inject constructor(
 ): Fragment() {
 
-    private val dataMockViewModel by viewModels<DataMockViewModel>()
+    private val dataProductViewModel by viewModels<DataProductViewModel>()
 
     private var _binding: FragmentShoppingCartBinding? = null
 
@@ -66,7 +63,7 @@ class ShoppingCartFragment @Inject constructor(
 
     private fun cleanProductCart() {
         CoroutineScope(Dispatchers.IO).launch {
-            dataMockViewModel.cleanProductCart()
+            dataProductViewModel.cleanProductCart()
             binding.lyResult.visibility = View.INVISIBLE
             binding.bSendCart.visibility = View.INVISIBLE
             withContext(Dispatchers.Main){
@@ -77,8 +74,8 @@ class ShoppingCartFragment @Inject constructor(
 
     private fun setDataMock() {
         CoroutineScope(Dispatchers.IO).launch {
-            val list: List<ProductViewModel> = dataMockViewModel.getProductsCart().map { p ->
-                val product = dataMockViewModel.getById(p.id).product
+            val list: List<ProductViewModel> = dataProductViewModel.getProductsCart().map { p ->
+                val product = dataProductViewModel.getById(p.id).product
                 ProductViewModel(
                     product = product,
                     currentAmount = p.amount,

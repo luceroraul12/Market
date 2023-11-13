@@ -1,7 +1,6 @@
 package com.example.market.data
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.daos.ProductDao
 import com.example.market.database.entities.ProductCartEntity
@@ -13,12 +12,11 @@ import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DataMockViewModel @Inject constructor(
+class DataProductViewModel @Inject constructor(
     private val productCartDao: ProductCartDao,
     private val productDao: ProductDao,
     private val networkRepository: NetworkRepository

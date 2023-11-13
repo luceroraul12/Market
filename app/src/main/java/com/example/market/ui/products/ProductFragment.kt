@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.market.data.DataMockViewModel
+import com.example.market.data.DataProductViewModel
 import com.example.market.databinding.FragmentProductBinding
 import com.example.market.ui.products.Adapter.ProductAdapter
 import com.example.market.ui.products.model.ProductViewModel
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProductFragment @Inject constructor() : Fragment() {
 
-    private val dataMockViewModel by viewModels<DataMockViewModel>()
+    private val dataProductViewModel by viewModels<DataProductViewModel>()
 
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
@@ -64,7 +64,7 @@ class ProductFragment @Inject constructor() : Fragment() {
 
     private fun setDataMock() {
         CoroutineScope(Dispatchers.IO).launch {
-            val products: List<ProductViewModel>  = dataMockViewModel.getAllProductaWithStatus();
+            val products: List<ProductViewModel>  = dataProductViewModel.getAllProductaWithStatus();
             withContext(Dispatchers.Main) {
                 productAdapter.updateProducts(products)
             }

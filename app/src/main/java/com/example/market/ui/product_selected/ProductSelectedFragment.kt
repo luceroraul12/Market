@@ -12,13 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.market.R
-import com.example.market.data.DataMockViewModel
+import com.example.market.data.DataProductViewModel
 import com.example.market.database.entities.ProductCartEntity
 import com.example.market.databinding.FragmentProductSelectedBinding
 import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -26,7 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProductSelectedFragment @Inject constructor(): Fragment() {
 
-    private val dataMockViewModel by viewModels<DataMockViewModel>()
+    private val dataProductViewModel by viewModels<DataProductViewModel>()
 
     private var _binding: FragmentProductSelectedBinding? = null
 
@@ -92,7 +90,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                productSelected = dataMockViewModel.getById(args.id)
+                productSelected = dataProductViewModel.getById(args.id)
                 binding.tvProductSelectedName.text = productSelected.product.name
                 binding.tvProductSelectedDescription.text = productSelected.product.description
                 binding.tvProductSelectedUnit.text = productSelected.product.unitTypeName
@@ -106,7 +104,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
         productSelected.currentAmount = binding.tvProductSelectedCurrentAmount.text.toString().toInt()
         productSelected.currentPrice = binding.tvProductSelectedCurrentPrice.text.toString().toDouble()
 
-        dataMockViewModel.insert(ProductCartEntity(
+        dataProductViewModel.insert(ProductCartEntity(
             id = productSelected.product.id,
             name = productSelected.product.name,
             amount = productSelected.currentAmount,
@@ -120,7 +118,7 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     }
 
     private fun removeProductCart(){
-        dataMockViewModel.removeProductCart(productSelected.product.id)
+        dataProductViewModel.removeProductCart(productSelected.product.id)
         val label = "Carrito: Producto eliminado: ${productSelected.product.name}";
         val toast = Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT);
         toast.show()
