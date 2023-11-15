@@ -136,42 +136,6 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <TextView
-                        android:id="@+id/tvLabelUnit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="gramos"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        style="@style/productDescription"
-
-                        android:textStyle="italic"/>
-                    <TextView
-                        android:id="@+id/tvProductSelectedCurrentAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/example_unit"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textSize="30sp"
-                        style="@style/productDescription"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/equivale"
-                    style="@style/productDescription"
-
-                    android:layout_margin="@dimen/margin_divider"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ARS$"
@@ -198,29 +162,50 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
-                <Button
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_marginHorizontal="5dp"
                     android:id="@+id/bDownAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reducir"/>
-                <Button
+                    android:src="@drawable/ic_sub"
+                    android:backgroundTint="@color/warning"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/tvLabelUnit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="gramos"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        style="@style/productDescription"
+
+                        android:textStyle="italic"/>
+                    <TextView
+                        android:id="@+id/tvProductSelectedCurrentAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/example_unit"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textSize="30sp"
+                        style="@style/productDescription"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_marginHorizontal="5dp"
                     android:id="@+id/bUpAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aumentar"/>
+                    android:src="@drawable/ic_plus"
+                    android:backgroundTint="@color/success"
+                    />
             </LinearLayout>
-
-<!--            <com.google.android.material.slider.Slider-->
-<!--                android:id="@+id/sProductSelectedCurrentAmount"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:valueFrom="0"-->
-<!--                android:valueTo="1000"-->
-<!--                android:stepSize="25"-->
-<!--                android:layout_margin="@dimen/margin_divider"-->
-<!--                />-->
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
