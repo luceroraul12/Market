@@ -10,6 +10,6 @@ data class ProductViewModel(
     var isCart: Boolean = false
 )
 
-fun ProductViewModel.toEntity(): ProductEntity{
+fun ProductViewModel.toProductEntity(): ProductEntity{
     return this.product
 }

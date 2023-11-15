@@ -20,4 +20,6 @@ interface ProductCartDao {
     @Query("DELETE FROM productcartentity")
     fun cleanProductCart()
 
+    @Query("SELECT * FROM ProductCartEntity WHERE id = (:id)")
+    fun getByProductId(id: Int): ProductCartEntity
 }

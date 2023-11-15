@@ -18,7 +18,6 @@ import com.example.market.databinding.FragmentProductSelectedBinding
 import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -94,7 +93,10 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     private fun setProductSelected() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                productSelected = dataProductViewModel.getById(args.id)
+                productSelected = if (args.newProduct)
+                    dataProductViewModel.getProductByProductId(args.id) else
+                        dataProductViewModel.getProductCartByProductId(args.id)
+
                 binding.tvLabelUnit.text = dataProductViewModel.generateLabelUnitStep(productSelected)
                 binding.tvProductSelectedName.text = productSelected.product.name
                 binding.tvProductSelectedDescription.text = productSelected.product.description

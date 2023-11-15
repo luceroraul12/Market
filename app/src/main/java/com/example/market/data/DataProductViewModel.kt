@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.market.database.daos.ProductCartDao
 import com.example.market.database.daos.ProductDao
 import com.example.market.database.entities.ProductCartEntity
+import com.example.market.database.entities.ProductEntity
 import com.example.market.database.entities.toViewModel
 import com.example.market.database.repository.NetworkRepository
 import com.example.market.database.responses.ProductCustomerResponse
@@ -12,8 +13,6 @@ import com.example.market.ui.products.model.ProductViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -26,8 +25,19 @@ class DataProductViewModel @Inject constructor(
 ): ViewModel(){
     private var products: List<ProductViewModel> = emptyList()
 
-    suspend fun getById(id: Int): ProductViewModel {
+    suspend fun getProductByProductId(id: Int): ProductViewModel {
         return withContext(Dispatchers.IO){ productDao.getById(id).toViewModel() }
+    }
+
+    suspend fun getProductCartByProductId(id: Int): ProductViewModel {
+        return withContext(Dispatchers.IO) {
+            val productCart: ProductCartEntity = productCartDao.getByProductId(id)
+            val result = productDao.getById(id).toViewModel()
+            result.isCart = true
+            result.currentAmount = productCart.amount
+            result.currentPrice = productCart.price
+            result
+        }
     }
 
     fun insert(productCartEntity: ProductCartEntity) {
@@ -70,3 +80,4 @@ class DataProductViewModel @Inject constructor(
         return if (p.product.onlyUnit) "Unidades" else if(p.product.unitTypeValue < 1) "Gramos" else "Kilos"
     }
 }
+

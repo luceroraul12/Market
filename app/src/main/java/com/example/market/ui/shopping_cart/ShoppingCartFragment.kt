@@ -75,7 +75,7 @@ class ShoppingCartFragment @Inject constructor(
     private fun setDataMock() {
         CoroutineScope(Dispatchers.IO).launch {
             val list: List<ProductViewModel> = dataProductViewModel.getProductsCart().map { p ->
-                val product = dataProductViewModel.getById(p.id).product
+                val product = dataProductViewModel.getProductByProductId(p.id).product
                 ProductViewModel(
                     product = product,
                     currentAmount = p.amount,
