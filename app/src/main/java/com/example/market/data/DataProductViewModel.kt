@@ -65,4 +65,8 @@ class DataProductViewModel @Inject constructor(
             productCartDao.cleanProductCart()
         }
     }
+
+    fun generateLabelUnitStep(p: ProductViewModel): String {
+        return if (p.product.onlyUnit) "Unidades" else if(p.product.unitTypeValue < 1) "Gramos" else "Kilos"
+    }
 }

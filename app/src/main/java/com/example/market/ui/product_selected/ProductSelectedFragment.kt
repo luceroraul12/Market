@@ -60,42 +60,49 @@ class ProductSelectedFragment @Inject constructor(): Fragment() {
     }
 
     private fun setListener() {
-        binding.sProductSelectedCurrentAmount.addOnChangeListener { _, value, _ ->
-            setNewCurrentAmount(value)
-        }
+//        binding.sProductSelectedCurrentAmount.addOnChangeListener { _, value, _ ->
+//            setNewCurrentAmount(value)
+//        }
         binding.bAdd.setOnClickListener { addProductoToCart() }
         binding.bRemove.setOnClickListener { removeProductCart() }
         binding.bBack.setOnClickListener { requireActivity().onBackPressed() }
+        binding.bUpAmount.setOnClickListener { upCurrentAmount() }
+        binding.bDownAmount.setOnClickListener { downCurrentAmount() }
     }
 
-    private fun setNewCurrentAmount(amount: Float) {
-        // Quitar decimales
-        val format = DecimalFormat("0.#")
-
-        // Para fraccion
-        val currentAmount: String = format.format(amount)
-        val labelUnit: String = currentAmount
-        binding.tvProductSelectedCurrentAmount.text = labelUnit
-
-        // Para precio MODO DE EJEMPLO suponiendo que todos las unidades se encuentran en 100g
-        val priceString: String = binding.tvProductSelectedPrice.text.toString()
-        val price: Int = priceString.toInt()
-
-        val amountNormalized = amount / 100
-        val currentPrice = (amountNormalized * price)
-        binding.tvProductSelectedCurrentPrice.text = format.format(currentPrice)
+    private fun downCurrentAmount() {
+        productSelected.currentAmount-= 25
+        binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
+        checkDownAmountStatus()
+        calculatePrice()
     }
 
+    private fun upCurrentAmount() {
+        productSelected.currentAmount+= 25
+        binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
+        checkDownAmountStatus()
+        calculatePrice()
+    }
+    private fun checkDownAmountStatus(){
+        binding.bDownAmount.isEnabled = productSelected.currentAmount > productSelected.product.unitTypeValue * 1000
+    }
+    private fun calculatePrice() {
+        val value: Double = productSelected.product.price.toDouble() * (productSelected.currentAmount.toDouble() / 1000)
+        productSelected.currentPrice = value
+        binding.tvProductSelectedCurrentPrice.text = value.toInt().toString()
+    }
     private fun setProductSelected() {
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 productSelected = dataProductViewModel.getById(args.id)
+                binding.tvLabelUnit.text = dataProductViewModel.generateLabelUnitStep(productSelected)
                 binding.tvProductSelectedName.text = productSelected.product.name
                 binding.tvProductSelectedDescription.text = productSelected.product.description
                 binding.tvProductSelectedUnit.text = productSelected.product.unitTypeName
-                binding.tvProductSelectedPrice.text = productSelected.product.price.toString()
+                binding.tvProductSelectedPrice.text = (productSelected.product.price * productSelected.product.unitTypeValue).toInt().toString()
                 binding.tvProductSelectedCurrentAmount.text = productSelected.currentAmount.toString()
+                checkDownAmountStatus()
+                calculatePrice()
             }
         }
     }
