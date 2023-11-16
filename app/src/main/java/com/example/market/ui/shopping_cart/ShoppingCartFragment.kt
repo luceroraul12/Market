@@ -104,7 +104,7 @@ class ShoppingCartFragment @Inject constructor(
             .map { p -> p.currentPrice }
             .reduce{a,b -> a + b}
 
-        return "ARS$$result"
+        return "ARS ${result.toInt()}"
     }
 
 }
