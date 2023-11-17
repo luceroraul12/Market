@@ -32,8 +32,12 @@ android {
         }
         getByName("debug") {
             isDebuggable = true
-            buildConfigField("String", "BASE_URL", "\"http://172.18.0.1:8080\"")
+            buildConfigField("String", "BASE_URL", "\"http://192.168.100.4:8080\"")
         }
+//        getByName("phone") {
+//            isDebuggable = true
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.100.4:8080\"")
+//        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
