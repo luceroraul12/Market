@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -80,16 +81,10 @@ class ShoppingCartFragment @Inject constructor(
     }
 
     private fun notifySeller() {
-        try {
-            val number: String = "542657678661"
-            val sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto: $number"))
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-            sendIntent.setPackage("com.whatsapp")
-            startActivity(sendIntent)
-        } catch(e: Exception) {
-            Toast.makeText(context, "El dispositivo no cuenta con WhatsApp", Toast.LENGTH_SHORT)
-                .show()
-        }
+        val number: String = "+542657678661"
+        val message: String = "Test de prueba desde android studio"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${message.toUri()}"))
+        startActivity(intent)
     }
 
     private fun setDataMock() {
