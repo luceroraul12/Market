@@ -1,10 +1,15 @@
 package com.example.market.ui.shopping_cart
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.NameNotFoundException
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ShoppingCartFragment @Inject constructor(
@@ -68,7 +74,21 @@ class ShoppingCartFragment @Inject constructor(
             binding.bSendCart.visibility = View.INVISIBLE
             withContext(Dispatchers.Main){
                 productAdapter.updateProducts(emptyList())
+                notifySeller()
             }
+        }
+    }
+
+    private fun notifySeller() {
+        try {
+            val number: String = "542657678661"
+            val sendIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto: $number"))
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+            sendIntent.setPackage("com.whatsapp")
+            startActivity(sendIntent)
+        } catch(e: Exception) {
+            Toast.makeText(context, "El dispositivo no cuenta con WhatsApp", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
