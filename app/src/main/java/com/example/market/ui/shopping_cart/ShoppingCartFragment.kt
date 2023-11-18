@@ -11,8 +11,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
@@ -75,7 +77,17 @@ class ShoppingCartFragment @Inject constructor(
                 rgEmails.addView(radioButton)
             }
             // Botones de aceptado / rechazado
-
+            val bAcept: Button = dialog.findViewById(R.id.bEmailSelectAcept)
+            bAcept.setOnClickListener {
+                val radioButton: RadioButton = dialog.findViewById(rgEmails.checkedRadioButtonId)
+                Toast.makeText(requireContext(), radioButton.text, Toast.LENGTH_SHORT).show()
+                dialog.hide()
+            }
+            val bCancel: Button = dialog.findViewById(R.id.bEmailSelectCancel)
+            bCancel.setOnClickListener {
+                Toast.makeText(requireContext(), "Sale del dialog cancelando", Toast.LENGTH_SHORT).show()
+                dialog.hide()
+            }
             dialog.show()
         }
     }
