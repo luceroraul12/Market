@@ -179,12 +179,18 @@ class ShoppingCartFragment @Inject constructor(
 
     private fun notifySeller() {
         val number: String = "+542657678661"
-        val message: String = "Test de prueba desde android studio"
-        val intent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${message.toUri()}")
-        )
-        startActivity(intent)
+        CoroutineScope(Dispatchers.IO).launch {
+            getEmail().take(1).collect { d ->
+                val buyId: Int = 20
+                val message: String = "Hola soy el usuario $d y te acabo de hacer el pedido con identificador N° $buyId"
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${message.toUri()}")
+                )
+                startActivity(intent)
+            }
+        }
+
     }
 
     private fun checkPermission(permissionCode: String) {
