@@ -30,15 +30,6 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <Button
-            android:id="@+id/bEmailSelectAcept"
-            android:layout_margin="5dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/email_select_accept"
-            android:backgroundTint="@color/success"
-            android:textColor="@color/white"/>
-        <Button
             android:id="@+id/bEmailSelectCancel"
             android:layout_margin="5dp"
             android:layout_width="0dp"
@@ -46,6 +37,15 @@
             android:layout_weight="1"
             android:text="@string/email_select_cancel"
             android:backgroundTint="@color/danger"
+            android:textColor="@color/white"/>
+        <Button
+            android:id="@+id/bEmailSelectAcept"
+            android:layout_margin="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/email_select_accept"
+            android:backgroundTint="@color/success"
             android:textColor="@color/white"/>
     </LinearLayout>
 </LinearLayout>

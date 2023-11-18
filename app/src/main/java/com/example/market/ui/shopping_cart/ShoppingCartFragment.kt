@@ -85,7 +85,7 @@ class ShoppingCartFragment @Inject constructor(
             }
             val bCancel: Button = dialog.findViewById(R.id.bEmailSelectCancel)
             bCancel.setOnClickListener {
-                Toast.makeText(requireContext(), "Sale del dialog cancelando", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Selección de correo cancelada", Toast.LENGTH_SHORT).show()
                 dialog.hide()
             }
             dialog.show()
