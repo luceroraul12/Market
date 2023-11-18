@@ -80,11 +80,13 @@ class ShoppingCartFragment @Inject constructor(
 
     private fun checkEmailUser() {
         prepareDialog()
-        var hasEmail: Boolean = false
         CoroutineScope(Dispatchers.IO).launch {
             getEmail().take(1).collect { d ->
-                if (d == null)
-                    dialog.show()
+                requireActivity().runOnUiThread{
+                    if (d == null) {
+                        dialog.show()
+                    }
+                }
             }
         }
     }
