@@ -12,8 +12,8 @@
     <string name="actualizar">Actualizar</string>
     <string name="quitar">Quitar</string>
     <string name="precio_total">Precio total</string>
-    <string name="email_select_description">Se va a utilizar la cuenta de correo electrónico para poder realizar pedidos de productos.</string>
-    <string name="email_select_title">Selección de cuenta</string>
+    <string name="email_select_description">Es necesario seleccionar un correo electrónico para identificar a los clientes al momento de realizar pedidos.</string>
+    <string name="email_select_title">Selección de correo</string>
     <string name="email_select_accept">Aceptar</string>
     <string name="email_select_cancel">Cancelar</string>
 </resources>

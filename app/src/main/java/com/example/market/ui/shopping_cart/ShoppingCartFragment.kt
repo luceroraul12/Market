@@ -66,7 +66,7 @@ class ShoppingCartFragment @Inject constructor(
         if (accounts.isNotEmpty()){
             val dialog = Dialog(requireContext())
             dialog.setContentView(R.layout.dialog_email_select)
-
+            // Selector de correo
             val rgEmails: RadioGroup = dialog.findViewById(R.id.rgEmails)
             for ((index, a) in accounts.withIndex()) {
                 val radioButton = RadioButton(requireContext())
@@ -74,6 +74,8 @@ class ShoppingCartFragment @Inject constructor(
                 radioButton.id = index
                 rgEmails.addView(radioButton)
             }
+            // Botones de aceptado / rechazado
+
             dialog.show()
         }
     }
