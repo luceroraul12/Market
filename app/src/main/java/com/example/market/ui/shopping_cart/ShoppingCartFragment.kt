@@ -1,14 +1,18 @@
 package com.example.market.ui.shopping_cart
 
 import android.Manifest
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
@@ -17,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.market.R
 import com.example.market.data.DataProductViewModel
 import com.example.market.databinding.FragmentShoppingCartBinding
 import com.example.market.ui.products.model.ProductViewModel
@@ -49,9 +54,28 @@ class ShoppingCartFragment @Inject constructor(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        checkPermission(Manifest.permission.READ_PHONE_NUMBERS)
+        checkPermission(Manifest.permission.GET_ACCOUNTS)
+        checkPermission(Manifest.permission.READ_CONTACTS)
+        checkEmailUser()
         _binding = FragmentShoppingCartBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    private fun checkEmailUser() {
+        val accounts: Array<Account> = AccountManager.get(context).getAccountsByType("com.google")
+        if (accounts.isNotEmpty()){
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.dialog_email_select)
+
+            val rgEmails: RadioGroup = dialog.findViewById(R.id.rgEmails)
+            for ((index, a) in accounts.withIndex()) {
+                val radioButton = RadioButton(requireContext())
+                radioButton.setText(a.name)
+                radioButton.id = index
+                rgEmails.addView(radioButton)
+            }
+            dialog.show()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,18 +113,13 @@ class ShoppingCartFragment @Inject constructor(
     }
 
     private fun notifySeller() {
-        val number: String = getPhoneNumber()
+        val number: String = "+542657678661"
         val message: String = "Test de prueba desde android studio"
         val intent = Intent(
             Intent.ACTION_VIEW,
             Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${message.toUri()}")
         )
         startActivity(intent)
-    }
-
-    private fun getPhoneNumber(): String {
-        val tm: TelephonyManager? = context?.getSystemService<TelephonyManager>()
-        return "+542657678661"
     }
 
     private fun checkPermission(permissionCode: String) {
