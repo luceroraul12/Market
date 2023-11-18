@@ -1,14 +1,17 @@
 package com.example.market.ui.shopping_cart
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.NameNotFoundException
 import android.net.Uri
 import android.os.Bundle
+import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +31,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShoppingCartFragment @Inject constructor(
-): Fragment() {
+) : Fragment() {
 
     private val dataProductViewModel by viewModels<DataProductViewModel>()
 
@@ -46,6 +49,7 @@ class ShoppingCartFragment @Inject constructor(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        checkPermission(Manifest.permission.READ_PHONE_NUMBERS)
         _binding = FragmentShoppingCartBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -54,17 +58,21 @@ class ShoppingCartFragment @Inject constructor(
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
     }
+
     private fun setAdapter() {
         productAdapter = ProductCartAdapter() {
             findNavController().navigate(
-                ShoppingCartFragmentDirections.actionShoppingCartFragment3ToProductSelectedFragment(it, false)
+                ShoppingCartFragmentDirections.actionShoppingCartFragment3ToProductSelectedFragment(
+                    it,
+                    false
+                )
             )
         }
         binding.rvProductsCart.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = productAdapter
         }
-        binding.bSendCart.setOnClickListener{cleanProductCart()}
+        binding.bSendCart.setOnClickListener { cleanProductCart() }
         setDataMock()
     }
 
@@ -73,7 +81,7 @@ class ShoppingCartFragment @Inject constructor(
             dataProductViewModel.cleanProductCart()
             binding.lyResult.visibility = View.INVISIBLE
             binding.bSendCart.visibility = View.INVISIBLE
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 productAdapter.updateProducts(emptyList())
                 notifySeller()
             }
@@ -81,10 +89,77 @@ class ShoppingCartFragment @Inject constructor(
     }
 
     private fun notifySeller() {
-        val number: String = "+542657678661"
+        val number: String = getPhoneNumber()
         val message: String = "Test de prueba desde android studio"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${message.toUri()}"))
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${message.toUri()}")
+        )
         startActivity(intent)
+    }
+
+    private fun getPhoneNumber(): String {
+        val tm: TelephonyManager? = context?.getSystemService<TelephonyManager>()
+        return "+542657678661"
+    }
+
+    private fun checkPermission(permissionCode: String) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                permissionCode
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            //El permiso no está aceptado.
+            requestPermission(permissionCode)
+        } else {
+            //El permiso está aceptado.
+        }
+    }
+
+    private fun requestPermission(permissionCode: String) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                permissionCode
+            )
+        ) {
+            //El usuario ya ha rechazado el permiso anteriormente, debemos informarle que vaya a ajustes.
+        } else {
+            //El usuario nunca ha aceptado ni rechazado, así que le pedimos que acepte el permiso.
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(permissionCode),
+                123
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            123 -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //El usuario ha aceptado el permiso, no tiene porqué darle de nuevo al botón, podemos lanzar la funcionalidad desde aquí.
+                } else {
+                    //El usuario ha rechazado el permiso, podemos desactivar la funcionalidad o mostrar una vista/diálogo.
+                }
+                return
+            }
+            321 -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //El usuario ha aceptado el permiso, no tiene porqué darle de nuevo al botón, podemos lanzar la funcionalidad desde aquí.
+                } else {
+                    //El usuario ha rechazado el permiso, podemos desactivar la funcionalidad o mostrar una vista/diálogo.
+                }
+                return
+            }
+
+            else -> {
+                // Este else lo dejamos por si sale un permiso que no teníamos controlado.
+            }
+        }
     }
 
     private fun setDataMock() {
@@ -105,7 +180,7 @@ class ShoppingCartFragment @Inject constructor(
     }
 
     private fun setResultPrice(list: List<ProductViewModel>): Unit {
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             binding.lyResult.visibility = View.GONE
             binding.bSendCart.visibility = View.GONE
         } else {
@@ -117,7 +192,7 @@ class ShoppingCartFragment @Inject constructor(
     private fun getResultPrice(list: List<ProductViewModel>): String {
         val result: Double = list
             .map { p -> p.currentPrice }
-            .reduce{a,b -> a + b}
+            .reduce { a, b -> a + b }
 
         return "ARS ${result.toInt()}"
     }

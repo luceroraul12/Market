@@ -47,8 +47,11 @@ class DataProductViewModel @Inject constructor(
     }
 
     suspend fun getProductsCart(): List<ProductCartEntity> {
-        val result: List<ProductCustomerResponse> = networkRepository.getProducts()
-        productDao.insert(result.map { it.toEntity() })
+        try {
+            val result: List<ProductCustomerResponse> = networkRepository.getProducts()
+            if (result.isNotEmpty())
+                productDao.insert(result.map { it.toEntity() })
+        } catch (_: Exception) {}
         return productCartDao.getAll();
     }
 
