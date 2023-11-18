@@ -4,6 +4,7 @@ import android.Manifest
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -17,8 +18,12 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.core.net.toUri
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,14 +36,22 @@ import com.example.market.ui.shopping_cart.adapter.ProductCartAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user")
 
 @AndroidEntryPoint
 class ShoppingCartFragment @Inject constructor(
 ) : Fragment() {
+
+    companion object {
+        const val EMAIL = "email"
+    }
 
     private val dataProductViewModel by viewModels<DataProductViewModel>()
 
@@ -47,6 +60,8 @@ class ShoppingCartFragment @Inject constructor(
     private val binding get() = _binding!!
 
     private lateinit var productAdapter: ProductCartAdapter
+
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,11 +79,23 @@ class ShoppingCartFragment @Inject constructor(
     }
 
     private fun checkEmailUser() {
-        val accounts: Array<Account> = AccountManager.get(context).getAccountsByType("com.google")
-        if (accounts.isNotEmpty()){
-            val dialog = Dialog(requireContext())
+        prepareDialog()
+        var hasEmail: Boolean = false
+        CoroutineScope(Dispatchers.IO).launch {
+            getEmail().take(1).collect { d ->
+                if (d == null)
+                    dialog.show()
+            }
+        }
+    }
+
+    private fun prepareDialog() {
+        val accounts: Array<Account> =
+            AccountManager.get(context).getAccountsByType("com.google")
+        dialog = Dialog(requireContext())
+        if (accounts.isNotEmpty()) {
             dialog.setContentView(R.layout.dialog_email_select)
-            // Selector de correo
+            // Genero las opciones por cada correo que tenga el usuario
             val rgEmails: RadioGroup = dialog.findViewById(R.id.rgEmails)
             for ((index, a) in accounts.withIndex()) {
                 val radioButton = RadioButton(requireContext())
@@ -76,21 +103,43 @@ class ShoppingCartFragment @Inject constructor(
                 radioButton.id = index
                 rgEmails.addView(radioButton)
             }
-            // Botones de aceptado / rechazado
+            // Boton de aceptacion
             val bAcept: Button = dialog.findViewById(R.id.bEmailSelectAcept)
             bAcept.setOnClickListener {
-                val radioButton: RadioButton = dialog.findViewById(rgEmails.checkedRadioButtonId)
+                val radioButton: RadioButton =
+                    dialog.findViewById(rgEmails.checkedRadioButtonId)
+                val newEmail: String = radioButton.text.toString()
                 Toast.makeText(requireContext(), radioButton.text, Toast.LENGTH_SHORT).show()
+                CoroutineScope(Dispatchers.IO).launch {
+                    saveEmail(newEmail)
+                }
                 dialog.hide()
             }
+            // Boton de cancelacion
             val bCancel: Button = dialog.findViewById(R.id.bEmailSelectCancel)
             bCancel.setOnClickListener {
-                Toast.makeText(requireContext(), "Selección de correo cancelada", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Selección de correo cancelada",
+                    Toast.LENGTH_SHORT
+                ).show()
                 dialog.hide()
             }
-            dialog.show()
         }
     }
+
+    private suspend fun saveEmail(email: String): Unit {
+        requireContext().dataStore.edit { preference ->
+            preference[stringPreferencesKey(EMAIL)] = email
+        }
+    }
+
+    private fun getEmail(): Flow<String?> {
+        return requireContext().dataStore.data.map { preferences ->
+            preferences[stringPreferencesKey(EMAIL)]
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -180,6 +229,7 @@ class ShoppingCartFragment @Inject constructor(
                 }
                 return
             }
+
             321 -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     //El usuario ha aceptado el permiso, no tiene porqué darle de nuevo al botón, podemos lanzar la funcionalidad desde aquí.
