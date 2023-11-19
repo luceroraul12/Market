@@ -1,10 +1,10 @@
 package com.example.market.ui.products
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,9 +50,14 @@ class ProductFragment @Inject constructor() : Fragment() {
 
     private fun initUI() {
         productAdapter = ProductAdapter() {
-            findNavController().navigate(
-                ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(it, true)
-            )
+            if (it.product.stock) {
+                findNavController().navigate(
+                    ProductFragmentDirections.actionProductFragmentToProductSelectedActivity(
+                        it.product.id,
+                        true
+                    )
+                )
+            }
         }
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(context)
@@ -64,13 +69,12 @@ class ProductFragment @Inject constructor() : Fragment() {
 
     private fun setDataMock() {
         CoroutineScope(Dispatchers.IO).launch {
-            val products: List<ProductViewModel>  = dataProductViewModel.getAllProductaWithStatus();
+            val products: List<ProductViewModel> = dataProductViewModel.getAllProductaWithStatus();
             withContext(Dispatchers.Main) {
                 productAdapter.updateProducts(products)
             }
         }
     }
-
 
 
 }
