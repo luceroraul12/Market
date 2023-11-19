@@ -1,10 +1,7 @@
 package com.example.market.ui.products.Adapter
 
-import android.text.Layout.Alignment
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.market.R
 import com.example.market.databinding.ItemProductBinding
 import com.example.market.ui.products.model.ProductViewModel
 
@@ -14,41 +11,31 @@ class ProductViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun render(product: ProductViewModel, onItemSelected: (product: ProductViewModel) -> Unit){
         binding.tvProductName.text = product.product.name
         binding.tvProductDescription.text = product.product.description
-        checkCart(product, onItemSelected)
-        checkStock(product)
+        checkLabels(product, onItemSelected)
+//        checkStock(product)
+//        checkCart(product, onItemSelected)
     }
 
-    private fun checkStock(product: ProductViewModel) {
-        if (product.product.stock) {
-            binding.tvProductUnit.visibility = View.VISIBLE
-            binding.tvProductUnit.text = product.product.unitTypeName
-            binding.tvProductPrice.text = product.product.price.toString()
-
-        } else {
-            binding.tvProductUnit.visibility = View.GONE
-            binding.tvProductPrice.text = "SIN STOCK"
-            binding.lyProductItem.setBackgroundColor(
-                ContextCompat.getColor(
-                    binding.lyProductItem.context,
-                    R.color.danger
-                )
-            )
-        }
-    }
-
-    private fun checkCart(
+    private fun checkLabels(
         product: ProductViewModel,
         onItemSelected: (product: ProductViewModel) -> Unit
     ) {
-        if (product.isCart) {
-            binding.lyProductItem.setBackgroundColor(
-                ContextCompat.getColor(
-                    binding.lyProductItem.context,
-                    R.color.gold
-                )
-            )
+        if (!product.product.stock){
+            binding.tvProductUnit.visibility = View.GONE
+            binding.tvProductPrice.text = "SIN STOCK"
+        } else if (product.isCart) {
+            binding.tvProductUnit.visibility = View.GONE
+            binding.tvProductPrice.text = "CARRITO"
         } else {
+            setNormalLabels(product)
             binding.lyProductItem.setOnClickListener { onItemSelected(product) }
         }
     }
+
+    private fun setNormalLabels(product: ProductViewModel) {
+        binding.tvProductUnit.visibility = View.VISIBLE
+        binding.tvProductUnit.text = product.product.unitTypeName
+        binding.tvProductPrice.text = product.product.price.toString()
+    }
+
 }
