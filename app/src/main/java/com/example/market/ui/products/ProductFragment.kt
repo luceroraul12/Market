@@ -64,7 +64,8 @@ class ProductFragment @Inject constructor() : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = productAdapter
         }
-        binding.svProducts.setOnQueryTextListener(
+        val svProducts: SearchView = binding.svProducts
+        svProducts.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let { searchSpecificProducs(query) }
