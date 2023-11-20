@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -63,7 +64,30 @@ class ProductFragment @Inject constructor() : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = productAdapter
         }
+        binding.svProducts.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let { searchSpecificProducs(query) }
+                    return true
+                }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrBlank())
+                        setDataMock()
+                    return false
+                }
+
+            }
+        )
         setDataMock()
+    }
+
+    private fun searchSpecificProducs(search: String): Unit {
+        CoroutineScope(Dispatchers.IO).launch {
+            val products: List<ProductViewModel> = dataProductViewModel.getProductsBySearch(search)
+            withContext(Dispatchers.Main) {
+                productAdapter.updateProducts(products)
+            }
+        }
     }
 
 

@@ -19,4 +19,9 @@ interface ProductDao {
 
     @Query("SELECT * FROM ProductEntity WHERE id = (:id )")
     fun getById(id: Int): ProductEntity
+
+    @Query("SELECT * FROM ProductEntity " +
+            "WHERE name LIKE :search " +
+            "OR description LIKE :search ")
+    fun getBySearch(search: String): List<ProductEntity>
 }

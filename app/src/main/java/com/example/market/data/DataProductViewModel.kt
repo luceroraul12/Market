@@ -82,5 +82,15 @@ class DataProductViewModel @Inject constructor(
     fun generateLabelUnitStep(p: ProductViewModel): String {
         return if (p.product.onlyUnit) "Unidades" else if(p.product.unitTypeValue < 1) "Gramos" else "Kilos"
     }
+
+    fun getProductsBySearch(search: String): List<ProductViewModel> {
+        val result: List<ProductViewModel> = productDao.getBySearch("%$search%").map {
+            ProductViewModel(
+                product = it
+            )
+        }
+        this.products = result
+        return result
+    }
 }
 
