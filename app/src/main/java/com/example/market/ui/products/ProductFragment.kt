@@ -73,15 +73,14 @@ class ProductFragment @Inject constructor() : Fragment() {
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
                     if (newText.isNullOrBlank())
-                        setDataMock()
+                        setAllData()
                     return false
                 }
 
             }
         )
-        setDataMock()
+        setAllData()
     }
-
     private fun searchSpecificProducs(search: String): Unit {
         CoroutineScope(Dispatchers.IO).launch {
             val products: List<ProductViewModel> = dataProductViewModel.getProductsBySearch(search)
@@ -91,8 +90,7 @@ class ProductFragment @Inject constructor() : Fragment() {
         }
     }
 
-
-    private fun setDataMock() {
+    private fun setAllData() {
         CoroutineScope(Dispatchers.IO).launch {
             val products: List<ProductViewModel> = dataProductViewModel.getAllProductaWithStatus();
             withContext(Dispatchers.Main) {
@@ -100,6 +98,4 @@ class ProductFragment @Inject constructor() : Fragment() {
             }
         }
     }
-
-
 }
