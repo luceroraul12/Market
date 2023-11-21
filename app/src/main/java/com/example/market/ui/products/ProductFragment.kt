@@ -91,10 +91,12 @@ class ProductFragment @Inject constructor() : Fragment() {
     }
 
     private fun setAllData() {
+        binding.pb.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             val products: List<ProductViewModel> = dataProductViewModel.getAllProductaWithStatus();
             withContext(Dispatchers.Main) {
                 productAdapter.updateProducts(products)
+                binding.pb.visibility = View.GONE
             }
         }
     }

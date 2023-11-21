@@ -254,6 +254,7 @@ class ShoppingCartFragment @Inject constructor(
     }
 
     private fun setDataMock() {
+        binding.pb.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             val list: List<ProductViewModel> = dataProductViewModel.getProductsCart().map { p ->
                 val product = dataProductViewModel.getProductByProductId(p.id).product
@@ -266,6 +267,7 @@ class ShoppingCartFragment @Inject constructor(
             withContext(Dispatchers.Main) {
                 productAdapter.updateProducts(list)
                 setResultPrice(list)
+                binding.pb.visibility = View.GONE
             }
         }
     }
