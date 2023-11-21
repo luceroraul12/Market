@@ -16,4 +16,5 @@
     <string name="email_select_title">Selección de correo</string>
     <string name="email_select_accept">Aceptar</string>
     <string name="email_select_cancel">Cancelar</string>
+    <string name="shoping_cart_send_order">Hacer pedido</string>
 </resources>
