@@ -15,7 +15,7 @@ class NetworkRepository @Inject constructor(
         return service.createOrder(order)
     }
 
-    suspend fun getOrders(username: String, storeCode: String): List<OrderResponse> {
-        return service.getOrders(username, storeCode)
+    suspend fun getMyOrders(username: String, storeCode: String): List<OrderResponse> {
+        return service.getMyOrders(username, storeCode)
     }
 }

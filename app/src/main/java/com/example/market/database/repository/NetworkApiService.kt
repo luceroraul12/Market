@@ -15,8 +15,8 @@ interface NetworkApiService {
     @POST("/customer/cart")
     suspend fun createOrder(@Body order: OrderResponse): Boolean
 
-    @GET("/customer/cart/store/{storeCode}/username/{username}")
-    suspend fun getOrders(
+    @GET("/customer/store/{storeCode}/username/{username}/orders")
+    suspend fun getMyOrders(
         @Path("username") username: String,
         @Path("storeCode") storeCode: String
     ): List<OrderResponse>
